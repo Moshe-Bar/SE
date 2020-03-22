@@ -15,10 +15,8 @@ public class Ray
 
     public Ray(Ray other)
     {
-        if(other == null)
-        {
-            this._direction = defaultDirection;
-        }
+        checkForNullArguments(other);
+
         this._POO = other.getPOO();
         this._direction = other.getDirection();
 
@@ -48,5 +46,17 @@ public class Ray
     //getters
     public Vector getDirection() { return new Vector(_direction); }
     public Point3D getPOO()       { return new Point3D(_POO);     }
+
+
+    private void checkForNullArguments(Object... obj)
+    {
+        for(Object o:obj)
+        {
+            if(o == null)
+            {
+                throw new NullPointerException("There were one or more null arguments provided");
+            }
+        }
+    }
 
 }
