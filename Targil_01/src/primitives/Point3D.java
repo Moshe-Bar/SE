@@ -97,22 +97,23 @@ public class Point3D
     public Vector subtract(Point3D other)
     {
         nullArgumentReaction();
-        return new Vector(x.get() - other.x.get(),y.get() - other.y.get(),z.get() - other.z.get());
+        return new Vector(x.subtract(other.getX()),y.subtract(other.getY()),z.subtract(other.getZ()));
     }
 
     public Point3D add(Vector vec)
     {
         nullArgumentReaction(vec);
+
         Point3D temp = new Point3D(vec.getDirection());
-        return new Point3D(temp.x.get() + x.get(),temp.y.get() + y.get(),temp.z.get() +z.get());
+        return new Point3D(temp.x.add(this.x),temp.y.add(this.y),temp.z.add(this.z));
     }
 
     private double distance2(Point3D other)
     {
         nullArgumentReaction(other);
 
-        double temp = (x.get() - other.x.get())*(x.get() - other.x.get()) + (y.get() - other.y.get())*(y.get() - other.y.get())
-                + (z.get() - other.z.get())*(z.get() - other.z.get());
+        double temp = (x.subtract(other.x).get()*x.subtract(other.x).get() + y.subtract(other.y).get()*y.subtract(other.y).get()
+                + z.subtract(other.z).get()*z.subtract(other.z).get());
         return temp;
     }
 

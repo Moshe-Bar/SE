@@ -18,8 +18,7 @@ public class Ray
         checkForNullArguments(other);
 
         this._POO = other.getPOO();
-        this._direction = other.getDirection();
-
+        this._direction = other.getDirection().normalized();
     }
 
     public Ray(Point3D poo, Vector direction)
@@ -39,8 +38,7 @@ public class Ray
         if(illegalArgument)throw  new IllegalArgumentException("One or more illegal arguments provided");
 
         this._POO = new Point3D(poo);
-        this._direction = new Vector(direction);
-        this._direction.normalized();
+        this._direction = new Vector(direction).normalized();
     }
 
     //getters
