@@ -18,9 +18,9 @@ public class Vector
     {
         normalized = false;
         try {
-            nullArgumentReaction(x,y,z);
+            //nullArgumentReaction(x,y,z);
         }
-        catch (NullPointerException ex)
+        catch(NullPointerException ex)
         {
             setDefaultValues();
             throw ex;

@@ -48,12 +48,11 @@ public class Ray
 
     private void checkForNullArguments(Object... obj)
     {
+        if(obj == null) throw new NullPointerException("There were one or more null arguments provided");
+
         for(Object o:obj)
         {
-            if(o == null)
-            {
-                throw new NullPointerException("There were one or more null arguments provided");
-            }
+            if(o == null) throw new NullPointerException("There were one or more null arguments provided");
         }
     }
 

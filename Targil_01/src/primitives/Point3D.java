@@ -3,7 +3,7 @@ package primitives;
 public class Point3D
 {
     //default values
-    private static final Point3D defaultPoint3D = new Point3D(1,1,1);
+    private static final Coordinate defaultCoordinate = new Coordinate(1);
 
     private static final Point3D zero  = new Point3D(0,0,0);
 
@@ -28,29 +28,20 @@ public class Point3D
     //constructors
     public Point3D(double x, double y, double z)
     {
-        //if values not valid the fields would stay on default values
-        this(defaultPoint3D);
-
-        Coordinate xTest = new Coordinate(x);
-        Coordinate yTest = new Coordinate(y);
-        Coordinate zTest = new Coordinate(z);
-        if(!legalArguments(xTest,yTest,zTest))
-        {
-            throw new IllegalArgumentException("One or more illegal arguments ");
-        }
-        this.x = xTest;
-        this.y = yTest;
-        this.z = zTest;
+        this.x = new Coordinate(x);
+        this.y = new Coordinate(y);
+        this.z = new Coordinate(z);
     }
 
     public Point3D(Coordinate x, Coordinate y, Coordinate z)
     {
-        //if values not valid the fields would stay on default values
-        this(defaultPoint3D);
-
         if(!legalArguments(x,y,z))
         {
-            throw new NullPointerException("One or more arguments are null or zero");
+            //default values
+            this.x = defaultCoordinate;
+            this.y = defaultCoordinate;
+            this.z = defaultCoordinate;
+            throw new NullPointerException("One or more arguments are null ");
         }
         this.x = new Coordinate(x);
         this.y = new Coordinate(y);
@@ -59,14 +50,14 @@ public class Point3D
 
     public Point3D(Point3D other)
     {
-        if(other == null)
+        if(!legalArguments(other))
         {
             //default values
-            this.x = new Coordinate(1);
-            this.y = new Coordinate(1);
-            this.z = new Coordinate(1);
+            this.y = defaultCoordinate;
+            this.z = defaultCoordinate;
+            this.x = defaultCoordinate;
 
-            throw new NullPointerException("One or arguments provided are null");
+            throw new NullPointerException("One or arguments are null");
         }
         this.x = other.getX();
         this.y = other.getY();
@@ -126,17 +117,28 @@ public class Point3D
     {
         return "(" + x + "," + y +"," + z +")";
     }
-    private boolean legalArguments(Coordinate x,Coordinate y, Coordinate z)
+    private boolean legalArguments(Object... obj)
     {
-        if(x == null || y == null || z == null ||x.get() == 0 || y.get() == 0 || z.get() == 0)
+        if(obj == null)
         {
             return false;
+        }
+        for(Object o:obj)
+        {
+           if(o == null)
+           {
+               return false;
+           }
         }
         return true;
     }
 
     private void nullArgumentReaction(Object... obj)
     {
+        if(obj == null)
+        {
+            throw new NullPointerException("One or more null arguments provided");
+        }
         for(Object o:obj)
         {
             if(o == null)
